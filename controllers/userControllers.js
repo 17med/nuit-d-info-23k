@@ -40,4 +40,26 @@ const isLogin = (req, res) => {
     res.json(decoded)
 }
 
-module.exports = { loginUser, signupUser, isLogin, test }
+const getScore = async (req, res) => {
+    const pseudo = req.params.pseudo;
+    try {
+        const user = await User.findOne({ pseudo });
+
+        if (!user) {
+            return res.status(404).send({
+                error: 'User not found',
+            });
+        }
+
+        res.status(200).send({
+            score: user.score,
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send({
+            error: 'Internal Server Error',
+        });
+    }
+};
+
+module.exports = { loginUser, signupUser, isLogin, test, getScore }
