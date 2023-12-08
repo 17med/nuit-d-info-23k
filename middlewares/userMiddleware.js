@@ -1,7 +1,5 @@
 require('dotenv').config()
 const jwt = require('jsonwebtoken')
-import { PrismaClient } from '@prisma/client/edge'
-
 
 
 const userMiddleware = (req, res, next) => {
@@ -16,8 +14,6 @@ const userMiddleware = (req, res, next) => {
         return res.status(401).json({error: "Not availble token"})
     }
 }
-
-
 const isAdmin = (req, res, next) => {
     try {
         const token = req.headers.authorization.split(' ')[1];
@@ -38,11 +34,7 @@ const isAdmin = (req, res, next) => {
     } catch (err) {
         return res.status(401).json({ error: "Not available token" });
     }
-};
-
-module.exports = isAdmin;
-
-
+}
 const verfiyToken = (token) => {
     try {
         const decoded = jwt.verify(token, process.env.SECRET)
@@ -52,4 +44,4 @@ const verfiyToken = (token) => {
     }
 }
 
-module.exports = {userMiddleware, isAdmin}
+module.exports = {userMiddleware,isAdmin}

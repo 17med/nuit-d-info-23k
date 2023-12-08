@@ -1,10 +1,9 @@
 require('dotenv').config()
 const jwt = require('jsonwebtoken')
-const {PrismaClient} = require("@prisma/client/edge");
-const prisma = new PrismaClient()
+
 // Create Token
 const createToken = (_id, name, pseudo, role, email) => {
-    return jwt.sign({_id, email, pseudo, role, email}, process.env.SECRET, {expiresIn: '3d'})
+    return jwt.sign({_id, name, pseudo, role, email}, process.env.SECRET, {expiresIn: '3d'})
 }
 
 // Verify Token

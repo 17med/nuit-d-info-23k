@@ -1,4 +1,4 @@
- require('dotenv').config()
+require('dotenv').config()
 const mongoose = require('mongoose')
 const express = require('express')
 const morgan = require('morgan')
@@ -6,6 +6,10 @@ const bodyParser = require('body-parser')
 const cors = require('./middlewares/cors')
 const { forwardind_errors, handling_errors } = require('./middlewares/errors')
 const usersRoutes = require('./routes/userRoutes')
+const taskRoutes = require('./routes/task'); // Add this line
+
+// Import routes
+const adviceRoutes = require('./routes/adviceRoutes');
 
 
 // ----------Express App----------------
@@ -22,6 +26,9 @@ app.use(morgan('dev'))
 app.use(express.json())
 app.use(bodyParser.urlencoded({extended : true}))
 app.use(bodyParser.json())
+// Use routes
+app.use('/advice', adviceRoutes);
+app.use('/tasks', taskRoutes); // Add this line
 app.use(cors)
 
 // ----------Routes----------------

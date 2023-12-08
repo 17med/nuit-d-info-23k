@@ -1,4 +1,4 @@
-
+require('dotenv').config()
 const User = require('../models/userSchema')
 const { verfiyToken, createToken } = require('../hooks/useToken')
 
@@ -9,28 +9,29 @@ const loginUser = async (req, res) => {
 
     User.login(pseudo, password)
     .then(user => {
-        const token = createToken(user._id, user.pseudo, user.role, user.email)
+        const token = createToken(user._id,  user.name , user.pseudo, user.role, user.email)
         res.status(201).json({pseudo, token: token})
     })
     .catch(err => res.status(400).json({error: err.message}))
 }
-const testUser = async (req, res) => {
-    const { pseudo, password } = req.body
 
-  res.send('hahahahahhahaha')
-}
 // Signup Controller
 const signupUser = async (req, res) => {
     const {name, pseudo, password, role, email} = req.body
 
     User.signup(name, pseudo, password, role, email)
     .then(user => {
-        const token = createToken(user._id, user.name, user.pseudo, user.role, user.email)
+        const token = createToken(user._id, user.pseudo, user.role, user.email)
         res.status(201).json({name, pseudo, role, email, token})
     })
     .catch(err => res.status(400).json({error: err.message}))
 }
+const test = async (req, res) => {
 
+        res.status(201).json('hahahah')
+
+   
+}
 // Is logged in or not
 const isLogin = (req, res) => {
     const { token } = req.body
@@ -39,4 +40,4 @@ const isLogin = (req, res) => {
     res.json(decoded)
 }
 
-module.exports = { loginUser, signupUser, isLogin, testUser }
+module.exports = { loginUser, signupUser, isLogin, test }

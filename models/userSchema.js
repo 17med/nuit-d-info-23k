@@ -37,6 +37,13 @@ const userSchema = new Schema({
         type: String,
         required: true
     },
+    advice: {
+        type: Schema.Types.ObjectId,
+        ref: 'Advice', // Reference to the Advice model
+      },
+      initializationDate: {
+        type: Date,
+      },
 }, {timestamps: true})
 
 
@@ -69,7 +76,7 @@ userSchema.statics.signup = async (name, pseudo, password, role, email) => {
 }
 
 
-userSchema.statics.login = async ( pseudo, password) => {
+userSchema.statics.login = async (pseudo, password) => {
 
     if (!pseudo || !password) throw Error ('Fill in all the fields please')
 
