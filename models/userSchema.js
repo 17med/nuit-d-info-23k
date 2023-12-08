@@ -52,6 +52,10 @@ const userSchema = new Schema({
       lastTaskCompletionDate: {
         type: Date,
       },
+      responses: [{
+        type: Schema.Types.ObjectId,
+        ref: 'UserResponse',
+      }],
 }, {timestamps: true})
 
 
@@ -98,7 +102,23 @@ userSchema.statics.login = async (pseudo, password) => {
 
     return user
 }
-
+// Calculate user's total score
+userSchema.methods.calculateTotalScore = async function () {
+    try {
+      const userResponses = await UserResponse.find({ userId: this._id }).populate('selectedChoice');
+      let totalScore = 0;
+  
+      userResponses.forEach(response => {
+        if (response.selectedChoice) {
+          totalScore += response.selectedChoice.points;
+        }
+      });
+  
+      return totalScore;
+    } catch (error) {
+      throw error;
+    }
+  };
 const User = mongoose.model('user', userSchema)
 
 module.exports = User
