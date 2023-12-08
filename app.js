@@ -28,7 +28,7 @@ app.use(bodyParser.urlencoded({extended : true}))
 app.use(bodyParser.json())
 // Use routes
 app.use('/advice', adviceRoutes);
-app.use('/tasks', taskRoutes); // Add this line
+ // Add this line
 app.use(cors)
 
 // ----------Routes----------------
