@@ -20,7 +20,7 @@ const app = express()
 mongoose.set('strictQuery', true)
 // const dbURI = 'mongodb+srv://younes:97286305.@cluster0.z6o0ewk.mongodb.net/test?retryWrites=true&w=majority'
 mongoose.connect(process.env.dbURI)
-    .then((result) => app.listen(3000, () => console.log('*** Server listening ***')))
+    .then((result) => app.listen(4000, () => console.log('*** Server listening ***')))
     .catch((err) => console.log(err))
 
 
