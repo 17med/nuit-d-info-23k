@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "User" ALTER COLUMN "dataTache" DROP NOT NULL,
+ALTER COLUMN "tache" DROP NOT NULL;
